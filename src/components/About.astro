@@ -1,0 +1,80 @@
+---
+
+const skills = [
+    { name: "Mobile Device Management", level: 80 },
+    { name: "IT Service Management", level: 75 },
+    { name: "Web Development", level: 65 },
+    { name: "Linux Administration", level: 60 },
+    { name: "Scripting & Automation", level: 50 },
+];
+---
+
+<section id="about" class="py-24 px-6">
+<div class="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-start">
+
+    <!-- Text column -->
+    <div class="md:col-span-3">
+    <span class="text-xs tracking-widest uppercase mb-3 block
+                text-cyan-600/70 dark:text-cyan-400/70"
+            style="font-family: 'JetBrains Mono', monospace;">About</span>
+    <h2 class="text-3xl md:text-4xl font-bold mb-6
+                text-slate-900 dark:text-slate-100"
+        style="font-family: 'JetBrains Mono', monospace;">
+        The Person Behind<br />the Terminal
+    </h2>
+    <div class="space-y-4 leading-relaxed text-slate-600 dark:text-slate-400"
+        style="font-family: 'DM Sans', sans-serif;">
+        <p>
+        I'm a 23-year-old IT professional based in Australia, currently working in the Enterprise Mobility & Cloud Management Space.
+        My background spans service desk, system administration and retail sales & management.
+        </p>
+        <p>
+        What drives me is the puzzle-solving side of technology: understanding how systems work, diagnosing issues, and finding elegant solutions. I believe in not just fixing problems but also being able to
+        communicate why something broke, not just how to fix it but why the fix works. I thrive on learning new technologies and applying that knowledge to solve real-world problems.
+        </p>
+        <p>
+        Outside of tech, I enjoy an open-world or strategy game, a strong cup of coffee, and the occasional walk by the beach.
+        </p>
+    </div>
+    </div>
+
+    <!-- Skills column -->
+    <div class="md:col-span-2">
+    <div class="rounded-xl border p-6
+                bg-white dark:bg-slate-900/50
+                border-slate-200 dark:border-slate-800">
+        <h3 class="text-sm tracking-widest uppercase mb-6
+                text-slate-500 dark:text-slate-400"
+            style="font-family: 'JetBrains Mono', monospace;">
+        Core Skills
+        </h3>
+        <div class="space-y-5">
+        {skills.map((skill) => (
+            <div>
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-slate-700 dark:text-slate-300"
+                    style="font-family: 'DM Sans', sans-serif;">
+                {skill.name}
+                </span>
+                <span class="text-xs text-slate-400 dark:text-slate-600"
+                    style="font-family: 'JetBrains Mono', monospace;">
+                {skill.level}%
+                </span>
+            </div>
+
+            <div class="h-1.5 rounded-full overflow-hidden
+                        bg-slate-100 dark:bg-slate-800">
+                <div class="h-full rounded-full bg-linear-to-r
+                            from-cyan-600 dark:from-cyan-500
+                            to-cyan-400 dark:to-cyan-400
+                            transition-all duration-1000"
+                    style={`width: ${skill.level}%;`}>
+                </div>
+            </div>
+            </div>
+        ))}
+        </div>
+    </div>
+    </div>
+</div>
+</section>

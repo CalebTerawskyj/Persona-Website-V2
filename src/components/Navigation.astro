@@ -1,0 +1,202 @@
+---
+import '../styles/global.css';
+
+const links = [
+    { href: '#home', label: 'Home' },
+    { href: '#projects', label: 'Projects' },
+    { href: '#about', label: 'About' },
+    { href: '#blog', label: 'Blog' },
+    { href: '#contact', label: 'Contact' },
+];
+---
+<!-- Primary Menu -->
+
+<nav id="main-nav" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent border-b border-transparent">
+<div class="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+    <div class="flex items-center">
+        <a href="/" >
+            <img class="h-12 w-auto pr-3 tracking-tight" src="/circuit_c_logo.png " alt="Circuit C Logo" />
+        </a>
+    </div>
+    <div class="hidden md:block">
+    <div class="ml-10 flex space-x-4">
+        <ul>
+            <a href="/" class="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium dark:text-neutral-300 dark:hover:bg-gray-700">Home</a>
+            <a href="/about" class="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium dark:text-neutral-300 dark:hover:bg-gray-700">About</a>
+            <a href="/projects" class="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium dark:text-neutral-300 dark:hover:bg-gray-700">Projects</a>
+            <a href="/blog" class="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium dark:text-neutral-300 dark:hover:bg-gray-700">Blog</a>
+            <a href="/contact" class="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium dark:text-neutral-300 dark:hover:bg-gray-700">Contact</a>
+            <a href="/resume" class="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium dark:text-neutral-300 dark:hover:bg-gray-700">Resume</a>
+            <button id="theme-toggle" class="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md text-sm font-medium dark:text-neutral-300 dark:hover:bg-gray-700">🌑</button>
+        </ul>
+    </div>
+    </div>
+
+<!-- CTA BUTTON -->
+        <a href="#contact" class="ml-1 px-4 py-2 text-sm font-semibold rounded-lg border transition-all duration-200
+                                bg-cyan-50 dark:bg-cyan-950
+                                text-cyan-600 dark:text-cyan-400
+                                border-cyan-200 dark:border-cyan-800
+                                hover:bg-cyan-100 dark:hover:bg-cyan-900
+                                hover:border-cyan-300 dark:hover:border-cyan-700">
+        Get in Touch
+        </a>
+    </div>
+
+
+        <!-- MOBILE CONTROLS -->
+    <div class="flex items-center gap-2 md:hidden">
+        <button id="theme-toggle-mobile"
+            class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-amber-500 dark:hover:text-amber-400"
+            aria-label="Toggle theme">
+            <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+            </svg>
+            <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+            </svg>
+        </button>
+
+<!-- HAMBURGER — three lines that animate into an X -->
+    <button id="mobile-menu-btn" class="flex flex-col gap-1.5 p-2" aria-label="Menu">
+        <span class="hamburger-line block w-5 h-0.5 bg-slate-600 dark:bg-slate-400 transition-all duration-300 origin-center"></span>
+        <span class="hamburger-line block w-5 h-0.5 bg-slate-600 dark:bg-slate-400 transition-all duration-300"></span>
+        <span class="hamburger-line block w-5 h-0.5 bg-slate-600 dark:bg-slate-400 transition-all duration-300 origin-center"></span>
+    </button>
+    </div>
+
+<!-- MOBILE MENU (hidden by default, shown via JS) -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 py-4 border-t anim-in bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-slate-200 dark:border-slate-800">
+        {links.map((link) => (
+            <a href={link.href}
+            class="mobile-link block py-3 text-sm transition-colors border-b last:border-0 text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 border-slate-100 dark:border-slate-800/50">
+        {link.label}
+    </a>
+    ))}
+    </div>
+</nav>
+
+<script>
+  // ── SCROLL DETECTION ──
+  // Adds frosted glass background to nav when scrolled
+    const nav = document.getElementById('main-nav');
+
+    function updateNavBackground() {
+    if (!nav) return;
+
+    if (window.scrollY > 20) {
+      // Scrolled: add frosted glass
+        nav.classList.remove('bg-transparent', 'border-transparent');
+        nav.classList.add(
+            'bg-white/90', 'dark:bg-slate-900/90',
+            'backdrop-blur-xl',
+            'border-slate-200', 'dark:border-slate-800',
+            'shadow-lg',
+            'shadow-slate-200/40', 'dark:shadow-black/20'
+        );
+    } else {
+      // At top: transparent
+        nav.classList.add('bg-transparent', 'border-transparent');
+        nav.classList.remove(
+            'bg-white/90', 'dark:bg-slate-900/90',
+            'backdrop-blur-xl',
+            'border-slate-200', 'dark:border-slate-800',
+            'shadow-lg',
+            'shadow-slate-200/40', 'dark:shadow-black/20'
+        );
+    }
+}
+
+    window.addEventListener('scroll', updateNavBackground);
+    updateNavBackground(); // Run once on load
+
+
+  // ── THEME TOGGLE ──
+    function toggleTheme() {
+        const html = document.documentElement;
+        html.classList.toggle('dark');
+
+    // Persist the choice so it survives page reloads
+    const isDark = html.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
+
+
+  // ── MOBILE MENU ──
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerLines = document.querySelectorAll('.hamburger-line');
+    let menuOpen = false;
+
+    menuBtn?.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu?.classList.toggle('hidden');
+
+    // Animate hamburger → X
+    if (menuOpen) {
+        hamburgerLines[0]?.classList.add('rotate-45', 'translate-y-2');
+        hamburgerLines[1]?.classList.add('opacity-0');
+        hamburgerLines[2]?.classList.add('-rotate-45', '-translate-y-2');
+    } else {
+        hamburgerLines[0]?.classList.remove('rotate-45', 'translate-y-2');
+        hamburgerLines[1]?.classList.remove('opacity-0');
+        hamburgerLines[2]?.classList.remove('-rotate-45', '-translate-y-2');
+    }
+});
+
+  // Close mobile menu when a link is clicked
+    document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu?.classList.add('hidden');
+        hamburgerLines[0]?.classList.remove('rotate-45', 'translate-y-2');
+        hamburgerLines[1]?.classList.remove('opacity-0');
+        hamburgerLines[2]?.classList.remove('-rotate-45', '-translate-y-2');
+    });
+});
+
+
+  // ── ACTIVE SECTION HIGHLIGHTING ──
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver(
+    (entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+        const sectionId = entry.target.id;
+
+        navLinks.forEach((link) => {
+            const linkSection = (link as HTMLElement).dataset.section;
+
+            if (linkSection === sectionId) {
+            // Active state
+            link.classList.remove(
+                'text-slate-500', 'dark:text-slate-400'
+            );
+            link.classList.add(
+                'text-cyan-600', 'dark:text-cyan-400', 'font-medium'
+            );
+            } else {
+            // Inactive state
+            link.classList.add(
+                'text-slate-500', 'dark:text-slate-400'
+            );
+            link.classList.remove(
+                'text-cyan-600', 'dark:text-cyan-400', 'font-medium'
+            );
+            }
+        });
+        }
+    });
+    },
+    { threshold: 0.25 }
+);
+
+    document.querySelectorAll('section[id]').forEach((section) => {
+    observer.observe(section);
+});
+</script>
