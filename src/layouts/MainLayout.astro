@@ -1,0 +1,54 @@
+---
+console.log("%cHey nerd 👋", "color:#009ba1; font-size:16px;");
+import '../styles/global.css';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+
+
+interface Props {
+    title: string;
+    description?: string;
+    bodyClass?: string;
+}
+
+const {
+    title,
+    description = "Caleb Terawskyj — Portfolio",
+    bodyClass = ""
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <meta name="description" content={description} />
+    <title>Caleb Terawskyj - {title}</title>
+</head>
+
+<body class:list={[
+    "bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 antialiased transition-colors duration-500",
+    bodyClass
+]}>
+    <Navigation />
+
+    <main>
+        <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+        console.log("%cHey nerd 👋", "color:#009ba1; font-size:16px;");
+    </script>
+</body>
+</html>
