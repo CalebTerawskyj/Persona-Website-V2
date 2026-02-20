@@ -1,0 +1,109 @@
+---
+interface Props {
+title: string;
+description: string;
+category: string;
+technologies: string[];
+featured?: boolean;
+githubUrl?: string;
+liveUrl?: string;
+delay?: number;
+}
+
+const { title, description, category, technologies, featured = false, githubUrl, liveUrl, delay = 0 } = Astro.props;
+---
+
+<article
+class="group relative rounded-xl overflow-hidden border transition-all duration-500 anim-up
+        bg-white dark:bg-slate-900/50
+        border-slate-200 dark:border-slate-800
+        hover:border-cyan-200 dark:hover:border-cyan-800/50
+        hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none"
+data-category={category}
+style={`animation-delay: ${delay * 0.1}s;`}
+>
+<div class="h-0.5 w-full opacity-0 group-hover:opacity-100 transition-opacity duration-500
+            bg-linear-to-r from-transparent via-cyan-400/50 dark:via-cyan-500/50 to-transparent">
+</div>
+
+<div class="p-6">
+    <div class="flex items-center justify-between mb-4">
+    <span class="text-xs tracking-widest uppercase
+                text-cyan-600/70 dark:text-cyan-400/70"
+            style="font-family: 'JetBrains Mono', monospace;">
+        {category}
+    </span>
+
+    {featured && (
+        <!--
+        ACCENT COLOUR — amber appears ONLY on featured badges.
+        Three layers create depth in a tiny element:
+        bg-amber-50/950 = barely-there tint
+        text-amber-600/400 = readable label
+        border-amber-200/800 = subtle warm edge
+        -->
+        <span class="text-xs px-2.5 py-1 rounded-full font-medium border
+                    bg-amber-50 dark:bg-amber-950
+                    text-amber-600 dark:text-amber-400
+                    border-amber-200 dark:border-amber-800"
+            style="font-family: 'DM Sans', sans-serif;">
+        Featured
+        </span>
+    )}
+    </div>
+
+    <h3 class="text-xl font-bold mb-3 transition-colors duration-300
+            text-slate-800 dark:text-slate-200
+            group-hover:text-cyan-600 dark:group-hover:text-cyan-400"
+        style="font-family: 'JetBrains Mono', monospace;">
+    {title}
+    </h3>
+
+    <p class="text-sm leading-relaxed mb-5
+            text-slate-600 dark:text-slate-400"
+    style="font-family: 'DM Sans', sans-serif;">
+    {description}
+    </p>
+
+    <div class="flex flex-wrap gap-2 mb-5">
+    {technologies.map((tech) => (
+        <span class="text-xs px-2.5 py-1 rounded-full border
+                    bg-cyan-50 dark:bg-cyan-950
+                    text-cyan-600 dark:text-cyan-400/80
+                    border-cyan-200 dark:border-cyan-800/50"
+            style="font-family: 'JetBrains Mono', monospace;">
+        {tech}
+        </span>
+    ))}
+    </div>
+
+    <!-- Links -->
+    <div class="flex gap-4 pt-4 border-t
+                border-slate-100 dark:border-slate-800/50">
+    {githubUrl && (
+        <a href={githubUrl} target="_blank" rel="noopener noreferrer"
+        class="text-sm transition-colors duration-200
+                text-slate-400 dark:text-slate-500
+                hover:text-cyan-600 dark:hover:text-cyan-400"
+        style="font-family: 'DM Sans', sans-serif;">
+        Source Code →
+        </a>
+    )}
+    {liveUrl && (
+        <a href={liveUrl} target="_blank" rel="noopener noreferrer"
+        class="text-sm transition-colors duration-200
+                text-slate-400 dark:text-slate-500
+                hover:text-cyan-600 dark:hover:text-cyan-400"
+        style="font-family: 'DM Sans', sans-serif;">
+        Live Demo →
+        </a>
+    )}
+    {!githubUrl && !liveUrl && (
+        <span class="text-sm text-slate-400 dark:text-slate-500"
+            style="font-family: 'DM Sans', sans-serif;">
+        Coming soon →
+        </span>
+    )}
+    </div>
+</div>
+</article>

@@ -1,0 +1,114 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+const projects = [
+{ title: "Portfolio Website V1", description: "The previous version of this website, built with Astro and Tailwind CSS as my first attempt at doing so", category: "Web Design", technologies: ["Astro", "Tailwind CSS", "JavaScript"], featured: true, githubUrl: "#", liveUrl: "#" },
+{ title: "Portfolio Website V2", description: "The current version of this website, built with Astro and Tailwind CSS, with improved visuals, component structure, and performance.", category: "Web Design", technologies: ["Astro", "Tailwind CSS", "JavaScript"], featured: true, githubUrl: "#", liveUrl: "#" },
+{ title: "Homelab Infrastructure", description: "Proxmox virtualisation environment running pfSense, Pi-hole, Wazuh SIEM, and segmented VLANs for isolated security testing.", category: "Networking", technologies: ["Proxmox", "Linux", "Docker"], featured: false },
+{ title: "First Person Survival Game", description: "A *very much still in the works as I learn* 3D game built in Unity where players scavenge for resources, build shelter, and survive in the Australian Outback.", category: "Game Development", technologies: ["Unity", "C#"], featured: false},
+];
+
+const categories = ["All", ...new Set(projects.map(p => p.category))];
+---
+
+<section id="projects" class="py-24 px-6">
+<div class="max-w-6xl mx-auto">
+
+    <!-- Section header -->
+    <div class="mb-12">
+    <span class="text-xs tracking-widest uppercase mb-3 block
+                text-cyan-600/70 dark:text-cyan-400/70"
+            style="font-family: 'JetBrains Mono', monospace;">
+        Portfolio
+    </span>
+    <h2 class="text-3xl md:text-4xl font-bold mb-4
+                text-slate-900 dark:text-slate-100"
+        style="font-family: 'JetBrains Mono', monospace;">
+        Selected Projects
+    </h2>
+    <p class="max-w-lg text-slate-600 dark:text-slate-400"
+        style="font-family: 'DM Sans', sans-serif;">
+        A mix of coursework, personal builds, and professional tools — each one solving a real problem.
+    </p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="flex flex-wrap gap-2 mb-10" id="filter-tabs">
+    {categories.map((cat, i) => (
+        <button
+        class:list={[
+            'filter-btn text-xs px-4 py-2 rounded-full border transition-all duration-200',
+            i === 0
+            ? 'bg-cyan-50 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800'
+            : 'bg-transparent text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-800 hover:text-slate-600 dark:hover:text-slate-300 hover:border-slate-400 dark:hover:border-slate-600',
+        ]}
+        data-filter={cat}
+        style="font-family: 'JetBrains Mono', monospace;"
+        >
+        {cat}
+        </button>
+        <!--
+        class:list is Astro's conditional class utility.
+        The first item ("All") starts with the active style.
+        The filter script below swaps active/inactive classes on click.
+        -->
+    ))}
+    </div>
+
+    <!-- Project grid -->
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2" id="projects-grid">
+    {projects.map((project, i) => (
+        <ProjectCard
+        title={project.title}
+        description={project.description}
+        category={project.category}
+        technologies={project.technologies}
+        featured={project.featured}
+        githubUrl={project.githubUrl}
+        liveUrl={project.liveUrl}
+        delay={i}
+        />
+    ))}
+    </div>
+</div>
+</section>
+
+
+<script>
+// ── PROJECT FILTER ──
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('[data-category]');
+
+const activeClasses = [
+    'bg-cyan-50', 'dark:bg-cyan-950',
+    'text-cyan-600', 'dark:text-cyan-400',
+    'border-cyan-200', 'dark:border-cyan-800'
+];
+const inactiveClasses = [
+    'bg-transparent',
+    'text-slate-400', 'dark:text-slate-500',
+    'border-slate-200', 'dark:border-slate-800'
+];
+
+filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+    const filter = (btn as HTMLElement).dataset.filter;
+
+    filterBtns.forEach((b) => {
+        activeClasses.forEach(c => b.classList.remove(c));
+        inactiveClasses.forEach(c => b.classList.add(c));
+    });
+    inactiveClasses.forEach(c => btn.classList.remove(c));
+    activeClasses.forEach(c => btn.classList.add(c));
+
+    cards.forEach((card) => {
+        const category = (card as HTMLElement).dataset.category;
+        if (filter === 'All' || category === filter) {
+        (card as HTMLElement).style.display = '';
+        } else {
+        (card as HTMLElement).style.display = 'none';
+        }
+    });
+    });
+});
+</script>
